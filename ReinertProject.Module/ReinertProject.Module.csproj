@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Configurations>Debug;Release;EasyTest</Configurations>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="BusinessObjects\ORMDataModel1.xpo" />
+    <None Remove="BusinessObjects\ORMDataModel1.xpo.diagram" />
+    <None Remove="BusinessObjects\Wohnung.xpo" />
+    <None Remove="BusinessObjects\Wohnung.xpo.diagram" />
+    <None Remove="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.ExpressApp" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.CodeAnalysis" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Objects" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="23.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="23.2.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="23.2.3" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.Xpo" Version="23.2.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="BusinessObjects\ServiceCollectionExtensions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="BusinessObjects\ReinertDataModel.xpo.diagram">
+      <AutoGen>True</AutoGen>
+    </None>
+    <None Update="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+    </None>
+  </ItemGroup>
+</Project>
