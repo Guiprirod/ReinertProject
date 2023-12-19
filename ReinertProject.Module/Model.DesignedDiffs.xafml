@@ -2,8 +2,22 @@
 <Application Title="ReinertProject">
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
-    <Class Name="ReinertProject.Module.BusinessObjects.Database.MandantClass" DefaultDetailViewImage="BO_User" DefaultListViewImage="BO_User" ImageName="BO_User" />
   </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Reinert">
+        <Items>
+          <Item Id="Mandant_ListView" ImageName="BO_Employee" />
+          <Item Id="Miete_ListView" ImageName="BO_Address" />
+          <Item Id="Mieter_ListView" ImageName="BO_User" />
+          <Item Id="Objekt_ListView" ImageName="BO_Resources" />
+          <Item Id="Reparatur_ListView" ImageName="Properties" />
+          <Item Id="Wohnung_ListView" ImageName="BO_Localization" />
+          <Item Id="WohnungMieter_ListView" ImageName="BO_Security_Permission_Type" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>

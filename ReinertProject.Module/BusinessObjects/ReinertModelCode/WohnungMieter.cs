@@ -5,12 +5,13 @@ using DevExpress.Data.Filtering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using DevExpress.Persistent.Base;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
-
-    public partial class MandantClass
+    [NavigationItem("Reinert")]
+    public partial class WohnungMieter
     {
-        public MandantClass(Session session) : base(session) { }
+        public WohnungMieter(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
     }
 

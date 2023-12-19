@@ -19,13 +19,13 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public static class ConnectionHelper
     {
         static Type[] persistentTypes = new Type[] {
-            typeof(MandantClass),
-            typeof(MieteClass),
-            typeof(MieterClass),
-            typeof(ObjektClass),
-            typeof(ReparaturClass),
-            typeof(WohnungClass),
-            typeof(WohnungMieterClass)
+            typeof(Mandant),
+            typeof(Miete),
+            typeof(Mieter),
+            typeof(Objekt),
+            typeof(Reparatur),
+            typeof(Wohnung),
+            typeof(WohnungMieter)
         };
         public static Type[] GetPersistentTypes()
         {
