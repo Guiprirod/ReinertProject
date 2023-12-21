@@ -14,6 +14,20 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         public Wohnung(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
+
+        [Action(Caption = "Enable", ConfirmationMessage = "Are you sure?", ImageName = "Check", TargetObjectsCriteria = "Vermietet=False", AutoCommit = true)]
+        public void EnableVermietet()
+        {
+            this.Vermietet = true;
+        }
+        [Action(Caption = "Disable", ConfirmationMessage = "Are you sure?", ImageName = "Cancel", TargetObjectsCriteria = "Vermietet=True", AutoCommit = true)]
+        public void DisabledVermietet()
+        {
+            this.Vermietet = false;
+        }
+
     }
+
 
 }

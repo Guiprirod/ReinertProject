@@ -14,6 +14,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         public Mandant(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+       
+
     }
 
 }

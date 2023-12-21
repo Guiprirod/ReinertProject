@@ -13,6 +13,8 @@ using DevExpress.Data.Filtering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.DC;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -20,6 +22,9 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         int fID;
         [Key]
+        [RuleRequiredField, RuleUniqueValue]
+        [XafDisplayName("Identifier")]
+
         public int ID
         {
             get { return fID; }

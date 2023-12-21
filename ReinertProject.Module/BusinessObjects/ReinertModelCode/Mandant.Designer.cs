@@ -13,6 +13,9 @@ using DevExpress.Data.Filtering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -20,6 +23,10 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         int fID;
         [Key]
+        [RuleRequiredField, RuleUniqueValue]
+        [XafDisplayName("Identifier")]
+
+
         public int ID
         {
             get { return fID; }
@@ -27,13 +34,18 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
         string fName;
         [Size(255)]
+        [RuleRequiredField]
+       
         public string Name
         {
             get { return fName; }
             set { SetPropertyValue<string>(nameof(Name), ref fName, value); }
         }
+        
         string fVorname;
         [Size(255)]
+        [RuleRequiredField]
+
         public string Vorname
         {
             get { return fVorname; }
@@ -41,6 +53,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
         string fStrasse;
         [Size(255)]
+        [RuleRequiredField]
+
         public string Strasse
         {
             get { return fStrasse; }
@@ -53,7 +67,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set { SetPropertyValue<int>(nameof(Hausnummer), ref fHausnummer, value); }
         }
         string fPostleitzahl;
-        [Size(255)]
+        [Size(10)]
         public string Postleitzahl
         {
             get { return fPostleitzahl; }
@@ -72,7 +86,24 @@ namespace ReinertProject.Module.BusinessObjects.Database
         {
             get { return fLand; }
             set { SetPropertyValue<string>(nameof(Land), ref fLand, value); }
+        } 
+        string fEmail;
+        [Size(50)]
+        [RuleRequiredField, RuleUniqueValue]
+        public string Email
+        {
+            get { return fEmail; }
+            set { SetPropertyValue<string>(nameof(Email), ref fEmail, value); }
+        } 
+        string fPhone;
+        [Size(50)]
+        [RuleRequiredField]
+        public string Phone
+        {
+            get { return fPhone; }
+            set { SetPropertyValue<string>(nameof(Phone), ref fPhone, value); }
         }
+
     }
 
 }

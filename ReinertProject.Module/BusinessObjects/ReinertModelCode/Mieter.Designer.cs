@@ -13,6 +13,8 @@ using DevExpress.Data.Filtering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.DC;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -20,6 +22,9 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         int fID;
         [Key]
+        [RuleRequiredField, RuleUniqueValue]
+        [XafDisplayName("Identifier")]
+
         public int ID
         {
             get { return fID; }
@@ -27,6 +32,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
         string fName;
         [Size(255)]
+        [RuleRequiredField]
+
         public string Name
         {
             get { return fName; }
@@ -34,6 +41,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
         string fVorname;
         [Size(255)]
+        [RuleRequiredField]
+
         public string Vorname
         {
             get { return fVorname; }
@@ -41,6 +50,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
         string fPersoNummer;
         [Size(255)]
+        [RuleRequiredField]
         public string PersoNummer
         {
             get { return fPersoNummer; }
