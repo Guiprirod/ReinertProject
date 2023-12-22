@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.ConditionalAppearance;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
     [NavigationItem("Reinert")]
@@ -13,7 +14,10 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public partial class Reparatur
     {
         public Reparatur(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
+        public override void AfterConstruction() { 
+            base.AfterConstruction();  
+            Status = Status.ToDo;
+        }
     }
 
 }

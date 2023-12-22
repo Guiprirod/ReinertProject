@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.ConditionalAppearance;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -62,6 +63,24 @@ namespace ReinertProject.Module.BusinessObjects.Database
             get { return fWohnung; }
             set { SetPropertyValue<int>(nameof(Wohnung), ref fWohnung, value); }
         }
+
+        Status fstatus;
+        public Status Status
+        {
+            get => fstatus;
+            set => SetPropertyValue(nameof(Status), ref fstatus, value);
+        }
+
+
+
+    }
+    public enum Status
+    {
+        ToDo = 0,
+        InProgress = 1,
+        Completed = 2,
+        Error = 3
+
     }
 
 }

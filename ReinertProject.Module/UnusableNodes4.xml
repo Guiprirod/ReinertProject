@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="NonPersistentObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="NonPersistentObject">
+              <LayoutGroup Id="Auto40d6a664-6805-4db7-aca4-888b348eaa59">
+                <LayoutGroup Id="Auto506d0f53-2ab5-467e-8fdd-1b82386eebc4">
+                  <LayoutItem Id="@TotalRepair" ViewItem="@TotalRepair" />
+                  <LayoutItem Id="@TotalRental" ViewItem="@TotalRental" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto86314be4-3d79-48f2-a05a-207635b69f3c">
+                  <LayoutItem Id="@NumberApartments" ViewItem="@NumberApartments" />
+                  <LayoutItem Id="@NumberProperties" ViewItem="@NumberProperties" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="NonPersistent_DetailView" Removed="True" />
+    <ListView Id="NonPersistent_ListView" Removed="True" />
+    <ListView Id="NonPersistent_LookupListView" Removed="True" />
+    <DetailView Id="Mandant_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Mandant">
+              <LayoutGroup Id="Mandant_col1">
+                <LayoutItem Id="@88e101b0-8028-4381-aee5-6c1ad9921def" ViewItem="@88e101b0-8028-4381-aee5-6c1ad9921def" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -28,11 +28,28 @@ public sealed class ReinertProjectBlazorModule : ModuleBase {
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
         return ModuleUpdater.EmptyModuleUpdaters;
     }
-    public override void Setup(XafApplication application) {
+    public override void Setup(XafApplication application)
+    {
         base.Setup(application);
-        // Uncomment this code to store the shared model differences (administrator settings in Model.XAFML) in the database.
-        // For more information, refer to the following topic: https://docs.devexpress.com/eXpressAppFramework/113698/
-        //application.CreateCustomModelDifferenceStore += Application_CreateCustomModelDifferenceStore;
+        application.ObjectSpaceCreated += Application_ObjectSpaceCreated;        
         application.CreateCustomUserModelDifferenceStore += Application_CreateCustomUserModelDifferenceStore;
+
     }
+    private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e)
+    {
+        CompositeObjectSpace compositeObjectSpace = e.ObjectSpace as CompositeObjectSpace;
+        if (compositeObjectSpace != null)
+        {
+            if (!(compositeObjectSpace.Owner is CompositeObjectSpace))
+            {
+                compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
+            }
+        }
+    }
+    //public override void Setup(XafApplication application) {
+    //    base.Setup(application);
+    //    // Uncomment this code to store the shared model differences (administrator settings in Model.XAFML) in the database.
+    //    // For more information, refer to the following topic: https://docs.devexpress.com/eXpressAppFramework/113698/
+    //    //application.CreateCustomModelDifferenceStore += Application_CreateCustomModelDifferenceStore;
+    //}
 }

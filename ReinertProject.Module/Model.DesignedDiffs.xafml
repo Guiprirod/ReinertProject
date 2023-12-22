@@ -2,10 +2,18 @@
 <Application Title="Reinert Project">
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyUser" Caption="Base User" />
+    <Class Name="ReinertProject.Module.BusinessObjects.Database.Reparatur">
+      <AppearanceRules>
+        <AppearanceRule Id="StatusCompleted" TargetItems="*" BackColor="128, 255, 128" FontColor="White" FontStyle="Bold" Context="ListView" Criteria="[Status] = ##Enum#ReinertProject.Module.BusinessObjects.Database.Status,Completed#" IsNewNode="True" />
+        <AppearanceRule Id="StatusError" BackColor="Red" TargetItems="*" Criteria="[Status] = ##Enum#ReinertProject.Module.BusinessObjects.Database.Status,Error#" FontColor="White" Context="ListView" IsNewNode="True" />
+        <AppearanceRule Id="StatusUnknown" BackColor="Gray" FontColor="White" FontStyle="Bold" Criteria="[Status] = ##Enum#ReinertProject.Module.BusinessObjects.Database.Status,InProgress# Or [Status] = ##Enum#ReinertProject.Module.BusinessObjects.Database.Status,ToDo#" TargetItems="*" Context="ListView" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
   </BOModel>
   <NavigationItems>
     <Items>
-      <Item Id="Reinert">
+      <Item Id="Information" ObjectKey="" Caption="Information" Index="0" ViewId="NonPersistentObject_DetailView" ImageName="Actions_Info" IsNewNode="True" />
+      <Item Id="Reinert" Index="1">
         <Items>
           <Item Id="Mandant_ListView" ImageName="BO_Employee" />
           <Item Id="Miete_ListView" ImageName="BO_Address" />
@@ -14,6 +22,11 @@
           <Item Id="Reparatur_ListView" ImageName="Properties" />
           <Item Id="Wohnung_ListView" ImageName="BO_Localization" />
           <Item Id="WohnungMieter_ListView" ImageName="BO_Security_Permission_Type" />
+        </Items>
+      </Item>
+      <Item Id="Default" Index="2">
+        <Items>
+          <Item Id="NonPersistentObject_ListView" Caption="Information" Removed="True" />
         </Items>
       </Item>
     </Items>
@@ -25,6 +38,23 @@
     <SchemaModule Name="SystemModule" Version="23.2.3.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="ApplicationUser_ListView" Caption="Users" />
+    <ListView Id="ApplicationUser_ListView" Caption="Users" FreezeColumnIndices="False" DataAccessMode="Client" />
+    <DetailView Id="NonPersistentObject_DetailView" Caption="Information" AllowDelete="True" AllowNew="True" AllowEdit="True" CaptionHorizontalAlignment="Center" CaptionLocation="Top" CaptionVerticalAlignment="Center" CustomizationEnabled="True" EnableLayoutGroupImages="True" ImageName="Actions_Info" DefaultFocusedItem="">
+      <Items>
+        <StaticText Id="WelcomeText" Caption="WelcomeText" HorizontalAlign="Center" VerticalAlign="Top" Text="Welcome to new Reinert Application" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="NonPersistentObject" RelativeSize="100">
+              <LayoutItem Id="WelcomeText" ShowCaption="False" ViewItem="WelcomeText" CaptionLocation="Bottom" Index="0" RelativeSize="92.57425742574257" SizeConstraintsType="Custom" MinSize="147, 31" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="NonPersistentObject_ListView" AllowDelete="True" AllowLink="True" AllowNew="True" DataAccessMode="Client" AllowEdit="True" AutoExpandAllGroups="True" />
+    <ListView Id="Wohnung_ListView" DataAccessMode="Server" />
+    <ListView Id="WohnungMieter_ListView" DataAccessMode="Server" />
   </Views>
 </Application>
