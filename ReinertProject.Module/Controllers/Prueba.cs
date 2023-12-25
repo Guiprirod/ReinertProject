@@ -7,8 +7,10 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 using ReinertProject.Module.BusinessObjects.Database;
 using System;
 using System.Collections.Generic;
@@ -32,24 +34,51 @@ namespace ReinertProject.Module.Controllers
 
             Completer.Execute += Complete_Execute;
 
+            TargetViewType = ViewType.DetailView;
+            TargetObjectType = typeof(Mandant);
+
+            SimpleAction mySimpleAction = new SimpleAction(this, "MySimpleAction", "MyCategory")
+            {
+                Caption = "Button",
+                ConfirmationMessage = "My Simple Action Shows a Message",
+
+
+            };
+            mySimpleAction.Execute += MySimpleAction_Execute;
             InitializeComponent();
             // Target required Views (via the TargetXXX properties) and create their Actions.
         }
 
         void Complete_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-           
 
-           var prueba = this.View.ObjectSpace.CreateCollection(typeof(Objekt));
-            var people = prueba.Count;
+            var totalCost = 0.00;
 
-            foreach (Objekt item in prueba)
+            XPQuery<Reparatur> query = new XPQuery<Reparatur>((this.View.ObjectSpace as XPObjectSpace).Session);
+            var list = from p in query
+                       select p;
+
+            foreach (var item in list)
             {
-                var personID = item.ID;
+                totalCost += Convert.ToDouble(item.Betrag);
             }
-            Console.WriteLine("Number of people:" + people);
-            
+
+
+            //var prueba = this.View.ObjectSpace.CreateCollection(typeof(Objekt));
+            // var people = prueba.Count;
+
+            // foreach (Objekt item in prueba)
+            // {
+            //     var personID = item.ID;
+            // }
+            // Console.WriteLine("Number of people:" + people);
+
         }
+        private void MySimpleAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
+        {
+            // ...
+        }
+
         protected override void OnActivated()
         {
             base.OnActivated();

@@ -14,7 +14,9 @@ namespace ReinertProject.Module.BusinessObjects.Database
     {
         public Mieter(Session session) : base(session) { }
         public override void AfterConstruction() { base.AfterConstruction(); }
+
         [Action(Caption = "Enable", ConfirmationMessage = "Are you sure?", ImageName = "Check", TargetObjectsCriteria = "Probleme=False", AutoCommit = true)]
+
         public void EnableVermietet()
         {
             this.Probleme = true;

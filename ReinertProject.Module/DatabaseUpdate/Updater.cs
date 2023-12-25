@@ -11,6 +11,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using ReinertProject.Module.BusinessObjects;
 using Microsoft.Extensions.DependencyInjection;
+using ReinertProject.Module.BusinessObjects.Database;
 
 namespace ReinertProject.Module.DatabaseUpdate;
 
@@ -27,6 +28,12 @@ public class Updater : ModuleUpdater {
         //    theObject = ObjectSpace.CreateObject<DomainObject1>();
         //    theObject.Name = name;
         //}
+
+        //IList dataView = this.View
+
+
+        //Reparatur costes = ObjectSpace.FirstOrDefault<Reparatur>(x => x.Betrag == 0);
+        //pruebaCantidad.repairCosts = costes.Betrag;
 
 
 

@@ -16,6 +16,8 @@ using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using System.ComponentModel.DataAnnotations.Schema;
+using DevExpress.ExpressApp.Model;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -69,6 +71,13 @@ namespace ReinertProject.Module.BusinessObjects.Database
         {
             get => fstatus;
             set => SetPropertyValue(nameof(Status), ref fstatus, value);
+        }
+
+        [NotMapped]
+        [ModelDefault("DisplayFormat" , "{0:c")]
+        public decimal Amount
+        {
+            get { return fBetrag; }
         }
 
 
