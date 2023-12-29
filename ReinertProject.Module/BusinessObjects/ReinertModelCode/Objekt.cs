@@ -13,7 +13,18 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public partial class Objekt
     {
         public Objekt(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            Reset();
+
+        }
+        private void Reset()
+        {
+
+            fNumberProperties = null;
+
+        }
     }
 
 }

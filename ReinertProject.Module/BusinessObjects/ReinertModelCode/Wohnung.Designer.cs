@@ -16,6 +16,7 @@ using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -25,7 +26,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
         [Key]
         [RuleRequiredField, RuleUniqueValue]
         [XafDisplayName("Identifier")]
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int ID
         {
@@ -78,14 +79,14 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set { SetPropertyValue<int>(nameof(Objekt), ref fObjekt, value); }
         }
 
-        //Save all data from Wohnung
-        public static XPCollection<Wohnung> ObtenerTodos(Session session)
+        //Get all data from Wohnung
+        public static XPCollection<Wohnung> GetAllData(Session session)
         {
             return new XPCollection<Wohnung>(session);
         }
         [NonPersistent]
-        string fNumberApartaments= null;
-
+        [NotMapped]
+        string fNumberApartaments = null;
         public string? NumberApartaments
         {
             get
@@ -100,11 +101,21 @@ namespace ReinertProject.Module.BusinessObjects.Database
         public void CalculateNumberApartaments(bool forceChangeEvents)
         {
             Session session = this.Session;
-            var prueba = ObtenerTodos(session);
+            var dataList = GetAllData(session);
+            List<string> apartaments = new List<string>();
 
-            var prueba2 = prueba.Where(x => x.Objekt == 1);
-            fNumberApartaments = Convert.ToString(prueba2.Count());
-            OnChanged(nameof(NumberApartaments),null,fNumberApartaments);
+            foreach (var data in dataList)
+            {
+                if (!apartaments.Contains(data.Bezeichnung))
+                {
+                    apartaments.Add(data.Bezeichnung);
+                }
+
+
+            }
+            
+            fNumberApartaments = Convert.ToString(apartaments.Count());
+            OnChanged(nameof(NumberApartaments), null, fNumberApartaments);
         }
 
 

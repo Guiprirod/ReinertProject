@@ -56,7 +56,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
         }
 
         //Save all data from Miete
-        public static XPCollection<Miete> ObtenerTodos(Session session)
+        public static XPCollection<Miete> GetAllData(Session session)
         {
             return new XPCollection<Miete>(session);
         }
@@ -81,8 +81,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
             decimal? oldOrdersTotal = fTotalCosts;
             decimal tempTotal = 0;
 
-            var prueba = ObtenerTodos(session);
-            foreach (Miete detail in prueba)
+            var dataList = GetAllData(session);
+            foreach (Miete detail in dataList)
                 tempTotal += detail.fBetrag;
             fTotalCosts = tempTotal;
             OnChanged(nameof(TotalCosts), oldOrdersTotal, fTotalCosts);

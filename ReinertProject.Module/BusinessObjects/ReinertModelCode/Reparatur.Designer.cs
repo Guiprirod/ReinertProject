@@ -68,35 +68,6 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set => SetPropertyValue(nameof(Status), ref fstatus, value);
         }
 
-        //[NotMapped]
-        //[ModelDefault("DisplayFormat" , "{0:c")]
-        //public decimal Amount
-        //{
-        //    get { return fBetrag; }
-        //}
-        //private IList<Reparatur> precio = new List<Reparatur>();
-
-
-        //[NonPersistent, System.ComponentModel.DisplayName("costesPrueba")]
-        //public decimal? SumRepairCosts
-        //{
-        //    get
-        //    {
-        //        decimal repairsTotal = 0;
-        //        if (precio != null)
-        //        {
-        //            foreach (var pair in precio)
-        //            {
-        //                repairsTotal += precio.Sum(x => x.Betrag);
-        //            }
-
-        //        }
-        //        return repairsTotal;
-
-        //    }
-
-
-        //}
         decimal fBetrag;
         [RuleRequiredField]
 
@@ -106,8 +77,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set { SetPropertyValue<decimal>(nameof(Betrag), ref fBetrag, value); }
         }
 
-        //Save all data from Reparatur
-        public static XPCollection<Reparatur> ObtenerTodos(Session session)
+        //Get all data from Reparatur
+        public static XPCollection<Reparatur> GetAllData(Session session)
         {
             return new XPCollection<Reparatur>(session);
         }
@@ -135,8 +106,8 @@ namespace ReinertProject.Module.BusinessObjects.Database
             decimal? oldOrdersTotal = fTotalCosts;
             decimal tempTotal = 0;
 
-            var prueba = ObtenerTodos(session);
-            foreach (Reparatur detail in prueba)
+            var dataList = GetAllData(session);
+            foreach (Reparatur detail in dataList)
                 tempTotal += detail.fBetrag;
             fTotalCosts = tempTotal;
             OnChanged(nameof(TotalCosts), oldOrdersTotal, fTotalCosts);

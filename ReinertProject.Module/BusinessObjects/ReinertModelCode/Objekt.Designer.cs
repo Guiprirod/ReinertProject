@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.DC;
+using System.Linq;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -76,6 +77,32 @@ namespace ReinertProject.Module.BusinessObjects.Database
         {
             get { return fMandant; }
             set { SetPropertyValue<int>(nameof(Mandant), ref fMandant, value); }
+        }
+
+        //Get all data from Objekt
+        public static XPCollection<Objekt> GetAllData(Session session)
+        {
+            return new XPCollection<Objekt>(session);
+        }
+        string fNumberProperties = null;
+
+        public string NumberProperties
+        {
+            get
+            {
+                if (!IsLoading && !IsSaving && fNumberProperties == null)
+                {
+                    CalculateNumberApartaments(false);
+                }
+                return fNumberProperties;
+            }
+        }
+        public void CalculateNumberApartaments(bool forceChangeEvents)
+        {
+            Session session = this.Session;
+            var dataList = GetAllData(session);
+            fNumberProperties = Convert.ToString(dataList.Count());
+            OnChanged(nameof(NumberProperties), null, fNumberProperties);
         }
     }
 
