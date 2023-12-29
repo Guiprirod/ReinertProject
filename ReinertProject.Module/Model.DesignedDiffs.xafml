@@ -54,6 +54,15 @@
       </Layout>
     </DetailView>
     <ListView Id="NonPersistentObject_ListView" AllowDelete="True" AllowLink="True" AllowNew="True" DataAccessMode="Client" AllowEdit="True" AutoExpandAllGroups="True" />
+    <ListView Id="Reparatur_ListView">
+      <Columns>
+        <ColumnInfo Id="TotalCosts" Width="319" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Bezeichnung" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Betrag" Width="153" Index="2" />
+        <ColumnInfo Id="Status" Width="129" SortIndex="-1" SortOrder="None" Index="3" />
+        <ColumnInfo Id="Wohnung" Width="88" Index="4" />
+      </Columns>
+    </ListView>
     <ListView Id="Wohnung_ListView" DataAccessMode="Server" />
     <ListView Id="WohnungMieter_ListView" DataAccessMode="Server" />
   </Views>

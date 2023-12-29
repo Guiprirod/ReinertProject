@@ -49,30 +49,8 @@ public sealed class ReinertProjectModule : ModuleBase
         base.CustomizeTypesInfo(typesInfo);
         CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
     }
-    private void Application_SetupComplete(object sender, EventArgs e)
-    {
-        Application.ObjectSpaceCreated += Application_ObjectSpaceCreated;
-    }
-    private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e)
-    {
-        NonPersistentObjectSpace nonPersistentObjectSpace = e.ObjectSpace as NonPersistentObjectSpace;
-        if (nonPersistentObjectSpace != null)
-        {
-            nonPersistentObjectSpace.ObjectsGetting += NonPersistentObjectSpace_ObjectsGetting;
-        }
-
-    }
-    private void NonPersistentObjectSpace_ObjectsGetting (object sender,  ObjectsGettingEventArgs e)
-    {
-        var objects = new List<object>();
-        if (e.ObjectType == typeof(NonPersistentObject))
-        {
-            objects.Add(new NonPersistentObject() { repairCosts=0});
-        }
-        if(e.ObjectType == typeof(Reparatur))
-        {
-            //objects.Add(new Reparatur()); 
-            //{ }
-        }
-    }
+    
+ 
+    
+    
 }
