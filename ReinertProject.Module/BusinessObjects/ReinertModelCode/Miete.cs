@@ -13,7 +13,15 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public partial class Miete
     {
         public Miete(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            Reset();
+        }
+        private void Reset()
+        {
+            fTotalCosts = null;
+        }
     }
 
 }

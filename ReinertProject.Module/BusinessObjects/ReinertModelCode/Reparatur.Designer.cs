@@ -106,19 +106,14 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set { SetPropertyValue<decimal>(nameof(Betrag), ref fBetrag, value); }
         }
 
+        //Save all data from Reparatur
         public static XPCollection<Reparatur> ObtenerTodos(Session session)
         {
             return new XPCollection<Reparatur>(session);
         }
 
-        //Test 1
 
-
-
-
-        //Test 2
-
-        [NonPersistent, DevExpress.Xpo.DisplayName("costesPruebaa2")]
+        [NonPersistent]
         private decimal? fTotalCosts = null;
         public decimal? TotalCosts
         {

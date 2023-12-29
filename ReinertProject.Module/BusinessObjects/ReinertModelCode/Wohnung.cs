@@ -13,8 +13,15 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public partial class Wohnung
     {
         public Wohnung(Session session) : base(session) { }
-        public override void AfterConstruction() { base.AfterConstruction(); }
-
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            Reset();
+        }
+        private void Reset()
+        {
+            fNumberApartaments = null;
+        }
 
         [Action(Caption = "Enable", ConfirmationMessage = "Are you sure?", ImageName = "Check", TargetObjectsCriteria = "Vermietet=False", AutoCommit = true)]
         public void EnableVermietet()

@@ -54,6 +54,41 @@ namespace ReinertProject.Module.BusinessObjects.Database
             get { return fWohnung; }
             set { SetPropertyValue<int>(nameof(Wohnung), ref fWohnung, value); }
         }
+
+        //Save all data from Miete
+        public static XPCollection<Miete> ObtenerTodos(Session session)
+        {
+            return new XPCollection<Miete>(session);
+        }
+
+        [NonPersistent]
+        private decimal? fTotalCosts = null;
+        public decimal? TotalCosts
+        {
+            get
+            {
+                if (!IsLoading && !IsSaving && fTotalCosts == null)
+                {
+                    UpdateTotalCosts(false);
+                }
+                return fTotalCosts;
+            }
+        }
+        public void UpdateTotalCosts(bool forceChangeEvents)
+        {
+            Session session = this.Session;
+
+            decimal? oldOrdersTotal = fTotalCosts;
+            decimal tempTotal = 0;
+
+            var prueba = ObtenerTodos(session);
+            foreach (Miete detail in prueba)
+                tempTotal += detail.fBetrag;
+            fTotalCosts = tempTotal;
+            OnChanged(nameof(TotalCosts), oldOrdersTotal, fTotalCosts);
+        }
+
+
     }
 
 }

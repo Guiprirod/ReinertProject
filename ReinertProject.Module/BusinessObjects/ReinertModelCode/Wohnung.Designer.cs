@@ -78,6 +78,36 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set { SetPropertyValue<int>(nameof(Objekt), ref fObjekt, value); }
         }
 
+        //Save all data from Wohnung
+        public static XPCollection<Wohnung> ObtenerTodos(Session session)
+        {
+            return new XPCollection<Wohnung>(session);
+        }
+        [NonPersistent]
+        string fNumberApartaments= null;
+
+        public string? NumberApartaments
+        {
+            get
+            {
+                if (!IsLoading && !IsSaving && fNumberApartaments == null)
+                {
+                    CalculateNumberApartaments(false);
+                }
+                return fNumberApartaments;
+            }
+        }
+        public void CalculateNumberApartaments(bool forceChangeEvents)
+        {
+            Session session = this.Session;
+            var prueba = ObtenerTodos(session);
+
+            var prueba2 = prueba.Where(x => x.Objekt == 1);
+            fNumberApartaments = Convert.ToString(prueba2.Count());
+            OnChanged(nameof(NumberApartaments),null,fNumberApartaments);
+        }
+
+
     }
 
 }
