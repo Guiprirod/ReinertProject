@@ -119,7 +119,6 @@ namespace ReinertProject.Module.BusinessObjects.Database
         //Test 2
 
         [NonPersistent, DevExpress.Xpo.DisplayName("costesPruebaa2")]
-
         private decimal? fTotalCosts = null;
         public decimal? TotalCosts
         {
@@ -139,7 +138,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
             Session session = this.Session;
 
             decimal? oldOrdersTotal = fTotalCosts;
-            decimal tempTotal = 0m;
+            decimal tempTotal = 0;
 
             var prueba = ObtenerTodos(session);
             foreach (Reparatur detail in prueba)
