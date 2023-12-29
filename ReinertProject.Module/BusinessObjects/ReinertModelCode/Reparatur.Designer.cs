@@ -18,6 +18,8 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
+using DevExpress.XtraRichEdit.API.Layout;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
 
@@ -34,14 +36,7 @@ namespace ReinertProject.Module.BusinessObjects.Database
             get { return fID; }
             set { SetPropertyValue<int>(nameof(ID), ref fID, value); }
         }
-        decimal fBetrag;
-        [RuleRequiredField]
-
-        public decimal Betrag
-        {
-            get { return fBetrag; }
-            set { SetPropertyValue<decimal>(nameof(Betrag), ref fBetrag, value); }
-        }
+       
         string fBezeichnung;
         [RuleRequiredField]
 
@@ -73,16 +68,88 @@ namespace ReinertProject.Module.BusinessObjects.Database
             set => SetPropertyValue(nameof(Status), ref fstatus, value);
         }
 
-        [NotMapped]
-        [ModelDefault("DisplayFormat" , "{0:c")]
-        public decimal Amount
+        //[NotMapped]
+        //[ModelDefault("DisplayFormat" , "{0:c")]
+        //public decimal Amount
+        //{
+        //    get { return fBetrag; }
+        //}
+        //private IList<Reparatur> precio = new List<Reparatur>();
+
+
+        //[NonPersistent, System.ComponentModel.DisplayName("costesPrueba")]
+        //public decimal? SumRepairCosts
+        //{
+        //    get
+        //    {
+        //        decimal repairsTotal = 0;
+        //        if (precio != null)
+        //        {
+        //            foreach (var pair in precio)
+        //            {
+        //                repairsTotal += precio.Sum(x => x.Betrag);
+        //            }
+
+        //        }
+        //        return repairsTotal;
+
+        //    }
+
+
+        //}
+        decimal fBetrag;
+        [RuleRequiredField]
+
+        public decimal Betrag
         {
             get { return fBetrag; }
+            set { SetPropertyValue<decimal>(nameof(Betrag), ref fBetrag, value); }
+        }
+
+        public static XPCollection<Reparatur> ObtenerTodos(Session session)
+        {
+            return new XPCollection<Reparatur>(session);
+        }
+
+        //Test 1
+
+
+
+
+        //Test 2
+
+        [NonPersistent, DevExpress.Xpo.DisplayName("costesPruebaa2")]
+
+        private decimal? fTotalCosts = null;
+        public decimal? TotalCosts
+        {
+            get
+            {
+                if (!IsLoading && !IsSaving && fTotalCosts == null)
+                {
+                    UpdateTotalCosts(false);
+                }
+                return fTotalCosts;
+            }
         }
 
 
+        public void UpdateTotalCosts(bool forceChangeEvents)
+        {
+            Session session = this.Session;
+
+            decimal? oldOrdersTotal = fTotalCosts;
+            decimal tempTotal = 0m;
+
+            var prueba = ObtenerTodos(session);
+            foreach (Reparatur detail in prueba)
+                tempTotal += detail.fBetrag;
+            fTotalCosts = tempTotal;
+            OnChanged(nameof(TotalCosts), oldOrdersTotal, fTotalCosts);
+        }
 
     }
+
     public enum Status
     {
         ToDo = 0,

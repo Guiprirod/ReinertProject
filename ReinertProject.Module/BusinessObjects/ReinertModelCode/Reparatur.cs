@@ -7,6 +7,9 @@ using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp;
+using static System.Net.Mime.MediaTypeNames;
 namespace ReinertProject.Module.BusinessObjects.Database
 {
     [NavigationItem("Reinert")]
@@ -14,10 +17,18 @@ namespace ReinertProject.Module.BusinessObjects.Database
     public partial class Reparatur
     {
         public Reparatur(Session session) : base(session) { }
-        public override void AfterConstruction() { 
-            base.AfterConstruction();  
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
             Status = Status.ToDo;
+            Reset();
+        }
+        private void Reset()
+        {
+            fTotalCosts = null;
         }
     }
+
+
 
 }

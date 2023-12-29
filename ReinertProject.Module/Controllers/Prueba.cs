@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using ReinertProject.Module.BusinessObjects.Database;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,20 @@ namespace ReinertProject.Module.Controllers
             // }
             // Console.WriteLine("Number of people:" + people);
 
+        }
+        public double GetEmployeesSimpleDataOrdered()
+        {
+            var totalCost = 0.00;
+
+            XPQuery<Reparatur> query = new XPQuery<Reparatur>((this.View.ObjectSpace as XPObjectSpace).Session);
+            var list = from p in query
+                       select p;
+
+            foreach (var item in list)
+            {
+                totalCost += Convert.ToDouble(item.Betrag);
+            }
+            return totalCost;
         }
         private void MySimpleAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
         {
