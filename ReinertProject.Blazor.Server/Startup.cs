@@ -8,10 +8,17 @@ using Microsoft.AspNetCore.Components.Server.Circuits;
 using DevExpress.ExpressApp.Xpo;
 using ReinertProject.Blazor.Server.Services;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.ExpressApp;
+using DevExpress.Blazor;
+
+using ReinertProject.Module.BusinessObjects.Database;
+using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 
 namespace ReinertProject.Blazor.Server;
 
 public class Startup {
+
     public Startup(IConfiguration configuration) {
         Configuration = configuration;
     }
@@ -22,13 +29,20 @@ public class Startup {
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services) {
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
-
+        services.AddDevExpressBlazor();
         services.AddRazorPages();
-        services.AddServerSideBlazor();
+        services.AddServerSideBlazor(); 
+        services.AddDevExpressBlazor();
+
+        services.AddScoped<UnitOfWork>(serviceProvider => {
+            var dataLayer = XpoDefault.GetDataLayer(Configuration.GetConnectionString("ConnectionString"), AutoCreateOption.DatabaseAndSchema);
+            return new UnitOfWork(dataLayer);
+        });
         services.AddHttpContextAccessor();
         services.AddScoped<CircuitHandler, CircuitHandlerProxy>();
         services.AddXaf(Configuration, builder => {
             builder.UseApplication<ReinertProjectBlazorApplication>();
+            builder.Services.AddDevExpressBlazor();
             builder.Modules
                 .AddConditionalAppearance()
                 .AddValidation(options => {

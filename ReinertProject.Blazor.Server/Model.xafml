@@ -2,19 +2,25 @@
 <Application>
   <NavigationItems NavigationStyle="Accordion">
     <Items>
+      <Item Id="@fc1de71d-2a0b-44be-864b-e2aa55659136" ViewId="WelcomeDashboard" Index="0" ImageName="Security_PersonalID" IsNewNode="True" />
+      <Item Id="Reinert" Index="1" />
       <Item Id="Default" Caption="Users" />
+      <Item Id="Information" Removed="True" />
     </Items>
   </NavigationItems>
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="23.2.3.0" IsNewNode="True" />
   </SchemaModules>
   <Views DefaultListEditor="DevExpress.ExpressApp.Blazor.Editors.DxGridListEditor">
-    <DetailView Id="@MainPage">
-      <Layout>
-        <LayoutItem Id="Item2" Index="0" RelativeSize="50" IsNewNode="True" />
-        <LayoutItem Id="Item1" Index="1" RelativeSize="24.946236559139784" IsNewNode="True" />
-        <LayoutItem Id="Item3" Index="2" RelativeSize="25.053763440860216" IsNewNode="True" />
+    <DashboardView Id="WelcomeDashboard" Caption="Welcome" IsNewNode="True">
+      <Items IsNewNode="True">
+        <ControlDetailItem Id="WelcomeComponentPlaceholder" ControlTypeName="ReinertProject.Blazor.Server.Components.WelcomeComponentAdapter" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" IsNewNode="True">
+          <LayoutItem Id="WelcomeComponentPlaceholder" ViewItem="WelcomeComponentPlaceholder" Index="0" IsNewNode="True" />
+        </LayoutGroup>
       </Layout>
-    </DetailView>
+    </DashboardView>
   </Views>
 </Application>

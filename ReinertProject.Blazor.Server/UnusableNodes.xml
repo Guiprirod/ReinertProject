@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="@MainPage">
+      <Layout Id="Layout">
+        <LayoutItem Id="Item2" Index="0" RelativeSize="50" />
+        <LayoutItem Id="Item1" Index="1" RelativeSize="24.946236559139784" />
+        <LayoutItem Id="Item3" Index="2" RelativeSize="25.053763440860216" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

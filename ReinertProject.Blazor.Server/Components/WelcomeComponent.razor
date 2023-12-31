@@ -1,0 +1,61 @@
+﻿@using DevExpress.ExpressApp
+@using DevExpress.ExpressApp.Xpo
+@using DevExpress.Xpo
+@using ReinertProject.Module.BusinessObjects.Database
+@inject UnitOfWork unitOfWork
+
+
+<style>
+    .main-toolbar {
+        display: none;
+    }
+</style>
+
+<br />
+<div class="container" style="text-align:center;">
+
+    <div class="row">
+
+        <div class="col-12">  <h3>Welcome to @Title!</h3></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <DxButton>Prueba</DxButton>
+
+        </div>
+        <div class="col-sm-6">
+            <DxButton>Prueba</DxButton>
+
+        </div>
+    </div>
+    <ul>
+        @foreach (var item in DataList)
+        {
+            <li>@item.Betrag</li>
+        }
+    </ul>
+
+
+
+</div>
+
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    public List<Reparatur> DataListReparatur { get; set; }
+    public List<Miete> DataListMiete{ get; set; }
+    public List<Wohnung> DataListWohnung { get; set; }
+    public List<Objekt> DataListObjekt{ get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        DataListReparatur = unitOfWork.Query<Reparatur>().ToList();
+        DataListMiete = unitOfWork.Query<Miete>().ToList();
+        DataListWohnung = unitOfWork.Query<Wohnung>().ToList();
+        DataListObjekt = unitOfWork.Query<Objekt>().ToList();
+    }
+}
