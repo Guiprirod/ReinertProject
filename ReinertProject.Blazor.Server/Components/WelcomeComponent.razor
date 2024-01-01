@@ -2,6 +2,7 @@
 @using DevExpress.ExpressApp.Xpo
 @using DevExpress.Xpo
 @using ReinertProject.Module.BusinessObjects.Database
+@inject NavigationManager Navigation
 @inject UnitOfWork unitOfWork
 
 
@@ -9,33 +10,91 @@
     .main-toolbar {
         display: none;
     }
+
+    .my-style-textbox {
+        border: 1px solid darkorchid;
+        border-radius: 3px;
+    }
+
+    .inputCssTextBox {
+        text-align: center;
+    }
+
+    .ButtonCssClass {
+        height: 100%;
+    }
 </style>
 
 <br />
-<div class="container" style="text-align:center;">
+<div class="container" style="    text-align: center;
+    border: 1px solid darkorchid;
+    border-radius: 10px;
+    padding-top: 1rem;">
 
     <div class="row">
 
-        <div class="col-12">  <h3>Welcome to @Title!</h3></div>
+        <div class="col-12" style="padding-bottom:3rem;">  <h3>Welcome to @Title!</h3></div>
 
     </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <DxButton>Prueba</DxButton>
+    <div class="row" style="justify-content:center">
+        <div class="col-sm-6" style="display:flex">
+            <div class="col-sm-4">
+                <p style="margin-top:0.25rem;"><strong>Number of Properties:</strong></p>
+            </div>
+            <div class="col-sm-6">
+                <DxTextBox Text="@TotalNumberProperties.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
+            </div>
 
         </div>
-        <div class="col-sm-6">
-            <DxButton>Prueba</DxButton>
+        <div class="col-sm-6" style="display:flex">
+            <div class="col-sm-4">
+                <p style="margin-top:0.25rem;"><strong>Number of Apartaments:</strong></p>
+            </div>
+            <div class="col-sm-6">
+                <DxTextBox Text="@TotalNumberApartaments.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
+            </div>
 
         </div>
     </div>
-    <ul>
-        @foreach (var item in DataList)
-        {
-            <li>@item.Betrag</li>
-        }
-    </ul>
+    <div class="row" style="justify-content:center">
+        <div class="col-sm-6" style="display:flex">
+            <div class="col-sm-4">
+                <p style="margin-top:0.25rem;"><strong>Total Rental Income:</strong></p>
+            </div>
+            <div class="col-sm-6">
+                <DxTextBox Text="@TotalRental.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
+            </div>
+
+        </div>
+        <div class="col-sm-6" style="display:flex">
+            <div class="col-sm-4">
+                <p style="margin-top:0.25rem;"><strong>Total Repair Costs:</strong></p>
+            </div>
+            <div class="col-sm-6">
+                <DxTextBox Text="@TotalRepairCosts.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" style="padding:4rem;justify-content:center;text-align:center;">
+        <div class="col-sm-3">
+            <div class="container" style=" border: 1px solid darkorchid;border-radius: 10px;">
+                <div class="col-sm-12" style="padding-top:1rem; padding-bottom:0.5rem">
+                    <DxButton Text="View Properties" Click="NavigateToObjekt" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Outline" CssClass="ButtonCssClass"></DxButton>
+                </div>
+                <div class="col-sm-12" style="padding:0.5rem;">
+                    <DxButton Text="View Apartaments" Click="NavigateToWohnung" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Outline"></DxButton>
+                </div>
+                <div class="col-sm-12" style="padding:0.5rem;">
+                    <DxButton Text="View Cost Repairs" Click="NavigateToReparatur" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Success" RenderStyleMode="ButtonRenderStyleMode.Outline"></DxButton>
+                </div>
+                <div class="col-sm-12" style="padding-bottom:1rem; padding-top:0.5rem">
+                    <DxButton Text="View Renta" Click="NavigateToMiete" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Danger" RenderStyleMode="ButtonRenderStyleMode.Outline"></DxButton>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -46,9 +105,15 @@
     [Parameter]
     public string Title { get; set; }
     public List<Reparatur> DataListReparatur { get; set; }
-    public List<Miete> DataListMiete{ get; set; }
+    public List<Miete> DataListMiete { get; set; }
     public List<Wohnung> DataListWohnung { get; set; }
-    public List<Objekt> DataListObjekt{ get; set; }
+    public List<Objekt> DataListObjekt { get; set; }
+    public decimal TotalRepairCosts;
+    public decimal TotalRental;
+    public int TotalNumberProperties;
+    public int TotalNumberApartaments;
+    [Parameter]
+    public string IconCssClass { get; set; }
 
 
     protected override void OnInitialized()
@@ -57,5 +122,67 @@
         DataListMiete = unitOfWork.Query<Miete>().ToList();
         DataListWohnung = unitOfWork.Query<Wohnung>().ToList();
         DataListObjekt = unitOfWork.Query<Objekt>().ToList();
+        LoadData();
     }
+    public void LoadData()
+    {
+        if (DataListReparatur.Count != 0)
+        {
+            foreach (var item in DataListReparatur)
+            {
+                TotalRepairCosts += item.Betrag;
+            }
+            TotalRepairCosts = Math.Round(TotalRepairCosts, 2);
+        }
+        if (DataListMiete.Count != 0)
+        {
+            foreach (var item in DataListMiete)
+            {
+                TotalRental += item.Betrag;
+            }
+            TotalRental = Math.Round(TotalRental, 2);
+        }
+        if (DataListWohnung.Count != 0)
+        {
+            List<string> idNoDuplicate = new List<string>();
+
+            foreach (var item in DataListWohnung)
+            {
+                if (!idNoDuplicate.Contains(item.Bezeichnung))
+                {
+                    idNoDuplicate.Add(item.Bezeichnung);
+                }
+
+            }
+            if (idNoDuplicate.Count != 0)
+            {
+                TotalNumberApartaments = idNoDuplicate.Count();
+            }
+        }
+        if (DataListObjekt.Count != 0)
+        {
+
+            TotalNumberProperties += DataListObjekt.Count;
+
+        }
+
+    }
+
+    private void NavigateToMiete()
+    {
+        Navigation.NavigateTo("Miete_ListView");
+    }
+    private void NavigateToObjekt()
+    {
+        Navigation.NavigateTo("Objekt_ListView");
+    }
+    private void NavigateToReparatur()
+    {
+        Navigation.NavigateTo("Reparatur_ListView");
+    }
+    private void NavigateToWohnung()
+    {
+        Navigation.NavigateTo("Wohnung_ListView");
+    }
+
 }
