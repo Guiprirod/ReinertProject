@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="NonPersistentObject_DetailView" Caption="Information" AllowDelete="True" AllowNew="True" AllowEdit="True" CaptionHorizontalAlignment="Center" CaptionLocation="Top" CaptionVerticalAlignment="Center" CustomizationEnabled="True" EnableLayoutGroupImages="True" ImageName="Actions_Info" DefaultFocusedItem="">
+      <Items Id="Items">
+        <StaticText Id="WelcomeText" Caption="WelcomeText" HorizontalAlign="Center" VerticalAlign="Top" Text="Welcome to new Reinert Application" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="NonPersistentObject" RelativeSize="100">
+              <LayoutItem Id="WelcomeText" ShowCaption="False" ViewItem="WelcomeText" CaptionLocation="Bottom" Index="0" RelativeSize="92.57425742574257" SizeConstraintsType="Custom" MinSize="147, 31" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="NonPersistentObject_ListView" AllowDelete="True" AllowLink="True" AllowNew="True" DataAccessMode="Client" AllowEdit="True" AutoExpandAllGroups="True" />
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="Default" Index="2">
+        <Items Id="Items">
+          <Item Id="NonPersistentObject_ListView" Caption="Information" Removed="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

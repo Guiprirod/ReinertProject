@@ -12,7 +12,7 @@
     }
 
     .my-style-textbox {
-        border: 1px solid darkorchid;
+        border: 1px solid #009DE2;
         border-radius: 3px;
     }
 
@@ -23,17 +23,20 @@
     .ButtonCssClass {
         height: 100%;
     }
+    .container{
+        text-align: center;
+        border: 1px solid #009DE2;
+        border-radius: 10px;
+        padding-top: 1rem;
+    }
 </style>
 
 <br />
-<div class="container" style="    text-align: center;
-    border: 1px solid darkorchid;
-    border-radius: 10px;
-    padding-top: 1rem;">
+<div class="container">
 
     <div class="row">
 
-        <div class="col-12" style="padding-bottom:3rem;">  <h3>Welcome to @Title!</h3></div>
+        <div class="col-12" style="padding-bottom:3rem;">  <h3><em>Welcome to @Title</em></h3></div>
 
     </div>
 
@@ -63,7 +66,7 @@
                 <p style="margin-top:0.25rem;"><strong>Total Rental Income:</strong></p>
             </div>
             <div class="col-sm-6">
-                <DxTextBox Text="@TotalRental.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
+                <DxTextBox Text="@TotalRenta.ToString()" SizeMode="SizeMode.Large" ReadOnly="true" CssClass="my-style-textbox" InputCssClass="inputCssTextBox"></DxTextBox>
             </div>
 
         </div>
@@ -79,7 +82,7 @@
     </div>
     <div class="row" style="padding:4rem;justify-content:center;text-align:center;">
         <div class="col-sm-3">
-            <div class="container" style=" border: 1px solid darkorchid;border-radius: 10px;">
+            <div class="container">
                 <div class="col-sm-12" style="padding-top:1rem; padding-bottom:0.5rem">
                     <DxButton Text="View Properties" Click="NavigateToObjekt" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Outline" CssClass="ButtonCssClass"></DxButton>
                 </div>
@@ -93,6 +96,11 @@
                     <DxButton Text="View Renta" Click="NavigateToMiete" SizeMode="SizeMode.Large" RenderStyle="ButtonRenderStyle.Danger" RenderStyleMode="ButtonRenderStyleMode.Outline"></DxButton>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" style="padding-bottom:1rem;">
+            <img class="jfN4p" src="https://www.2ig.de/wp-content/uploads/2019/08/2IG-Logo-R0G157B226.png" style="background:none" alt="2ig" height="60" width="300" data-csiid="1" data-atf="1">
         </div>
     </div>
 
@@ -109,7 +117,7 @@
     public List<Wohnung> DataListWohnung { get; set; }
     public List<Objekt> DataListObjekt { get; set; }
     public decimal TotalRepairCosts;
-    public decimal TotalRental;
+    public decimal TotalRenta;
     public int TotalNumberProperties;
     public int TotalNumberApartaments;
     [Parameter]
@@ -138,9 +146,9 @@
         {
             foreach (var item in DataListMiete)
             {
-                TotalRental += item.Betrag;
+                TotalRenta+= item.Betrag;
             }
-            TotalRental = Math.Round(TotalRental, 2);
+            TotalRenta = Math.Round(TotalRenta, 2);
         }
         if (DataListWohnung.Count != 0)
         {

@@ -26,28 +26,23 @@ namespace ReinertProject.Module.Controllers
     {
         // Use CodeRush to create Controllers and Actions with a few keystrokes.
         // https://docs.devexpress.com/CodeRushForRoslyn/403133/
-        SimpleAction Completer;
-
         public Prueba()
         {
-            TargetObjectType = typeof(Objekt);
-            Completer = new SimpleAction(this, "Completer", PredefinedCategory.Edit);
-
-            Completer.Execute += Complete_Execute;
-
             TargetViewType = ViewType.DetailView;
             TargetObjectType = typeof(Mandant);
 
-            SimpleAction mySimpleAction = new SimpleAction(this, "MySimpleAction", "MyCategory")
+            DevExpress.ExpressApp.Actions.SimpleAction mySimpleAction = new DevExpress.ExpressApp.Actions.SimpleAction(this, "MySimpleAction", "MyCategory")
             {
-                Caption = "Button",
+                Caption = "My Simple Action",
                 ConfirmationMessage = "My Simple Action Shows a Message",
-
-
             };
             mySimpleAction.Execute += MySimpleAction_Execute;
-            InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
+        }
+
+
+        private void MySimpleAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
+        {
+            // ...
         }
 
         void Complete_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -88,10 +83,6 @@ namespace ReinertProject.Module.Controllers
                 totalCost += Convert.ToDouble(item.Betrag);
             }
             return totalCost;
-        }
-        private void MySimpleAction_Execute(Object sender, SimpleActionExecuteEventArgs e)
-        {
-            // ...
         }
 
         protected override void OnActivated()
