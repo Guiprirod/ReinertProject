@@ -32,7 +32,4 @@
       <DependentUpon>Model.xafml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Templates\" />
-  </ItemGroup>
 </Project>
